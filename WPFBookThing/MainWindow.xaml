@@ -5,13 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFBookOrganizer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="175" Width="325">
+        Title="MainWindow" Height="150" Width="375">
     <Grid Margin="0,0,10,0">
-        <Button Name="inputFile" Content="INPUT" HorizontalAlignment="Center" Height="22" Margin="0,58,0,0" VerticalAlignment="Top" Width="72" Click="Button_Click_Input"/>
-        <!--<Button Name="outputFile" Content="OUTPUT" HorizontalAlignment="Left" Height="22" Margin="116,47,0,0" VerticalAlignment="Top" Width="72" RenderTransformOrigin="0.477,1.896" Click="Button_Click_Output"/>-->
-        <Button Name="go" Content="GO" HorizontalAlignment="Left" Height="22" Margin="205,58,0,0" VerticalAlignment="Top" Width="72" RenderTransformOrigin="0.477,1.896"  Click="Button_Click_Go"/>
-        <TextBox Text="Create the tmp file by clicking 'CREATE TMP', then select the .csv file by clicking 'INPUT' and then create the new file by selecting 'GO'" TextWrapping="Wrap" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="305" Height="32" Margin="10,10,0,0" TextChanged="TextBox_TextChanged" FontSize="10" />
-        <Button x:Name="createTemp" Content="CREATE TMP" HorizontalAlignment="Left" Height="22" Margin="24,58,0,0" VerticalAlignment="Top" Width="84" Click="Button_Click_Tmp_Create"/>
+        <Button Name="inputFile" Content="INPUT" HorizontalAlignment="Left" Height="22" Margin="10,58,0,0" VerticalAlignment="Top" Width="72" Click="Button_Click_Input"/>
+        <Button Name="outputFile" Content="OUTPUT" HorizontalAlignment="Left" Height="22" Margin="139,58,0,0" VerticalAlignment="Top" Width="72" RenderTransformOrigin="0.477,1.896" Click="Button_Click_Output"/>
+        <Button Name="go" Content="GO" HorizontalAlignment="Left" Height="22" Margin="268,58,0,0" VerticalAlignment="Top" Width="72" RenderTransformOrigin="0.477,1.896"  Click="Button_Click_Go"/>
+        <TextBox Text="Select the .csv file by clicking 'INPUT', dictate where you want the output to be by selecting...output... and then create the new file by selecting 'GO'" TextWrapping="Wrap" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="330" Height="32" Margin="10,10,0,0" FontSize="10" />
 
     </Grid>
 </Window>

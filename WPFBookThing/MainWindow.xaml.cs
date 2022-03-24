@@ -31,39 +31,15 @@ namespace WPFBookOrganizer
             InitializeComponent();
         }
 
-        public static class filepicker
+        public static class filepicker // Necessary to allow the selection of csv and json files
         {
-            public static string filename = "csvstuff.csv";
-        }
-
-        public class tmpcreator
-        {
-            public static void Main2()
-            {
-                string path = @"c:\tmp";
-
-                try
-                {
-                    if (Directory.Exists(path))
-                    {
-                        return;
-                    }
-
-                    // Try to create the directory.
-                    DirectoryInfo di = Directory.CreateDirectory(path);
-
-                }
-                catch (Exception e)
-                {
-
-                }
-                finally { }
-            }
+            public static string filename = "defaultcsv.csv";
+            public static string outputname = "defaultjson.json";
         }
 
         public class inputcreator
         {
-            public static void Main3() {
+            public static void InputCreator() {
                 var dialog = new Microsoft.Win32.OpenFileDialog();
             dialog.FileName = "Document";
             dialog.DefaultExt = ".csv";
@@ -72,45 +48,44 @@ namespace WPFBookOrganizer
             bool? result = dialog.ShowDialog();
 
             filepicker.filename = dialog.FileName;
-        }
+            MessageBox.Show($"You have selected {filepicker.filename} for input.");
+            }
     }
 
         public class outputcreator
         {
-            public static void Main4()
+            public static void OutputCreator()
             {
-                WinForms.FolderBrowserDialog folderDialog = new WinForms.FolderBrowserDialog();
-                folderDialog.ShowNewFolderButton = false;
-                WinForms.DialogResult result = folderDialog.ShowDialog();
-                MessageBox.Show($"You have selected {folderDialog.SelectedPath} for output");
+                var dialog = new Microsoft.Win32.SaveFileDialog();
+                dialog.FileName = "BookOrganizerJSONOutput";
+                dialog.DefaultExt = ".json";
+                dialog.Filter = "BookData Insertion (.json)|*.json";
+
+                bool? result = dialog.ShowDialog();
+
+                filepicker.outputname = dialog.FileName;
+                MessageBox.Show($"You have selected {dialog.FileName} for output.");
             }
         }
     
+        // Originally, the buttons had there respective code inside themselves, but this was a pain in the **** with respect to calling them elsewhere.
+        // Plus, it makes it look a bit nicer.
 
         private void Button_Click_Input(object sender, RoutedEventArgs e)
         {
-            inputcreator.Main3();
-            MessageBox.Show($"You have selected {filepicker.filename} for input. You'll find the output in the tmp folder in the C drive.");
+            inputcreator.InputCreator();
         }
 
-
-        private void Button_Click_Output(object sender, RoutedEventArgs e) // Works and allows folder selection, but is not currently relevant to the outcome of the program (it'll just go to the tmp folder on the C drive)
+        private void Button_Click_Output(object sender, RoutedEventArgs e)
         {
-            outputcreator.Main4();
-            MessageBox.Show($"Output folder chosen successfully");
-        }
+            outputcreator.OutputCreator();
 
-        private void Button_Click_Tmp_Create(object sender, RoutedEventArgs e) // Is a stand in for the Output atm, so that the user can still access the completed file.
-        {
-            tmpcreator.Main2();
-            MessageBox.Show("tmp folder successfully created, it's at c:/tmp");
         }
 
         private void Button_Click_Go(object sender, RoutedEventArgs e)
         {
             BookOrganizer.BookOrganizerVital();
         }
-
 
         public class BookOrganizer
         {
@@ -126,7 +101,7 @@ namespace WPFBookOrganizer
                 }
                 Console.WriteLine($"Sample - Books 50 was {Books[50]} ");
 
-                SerializeToFile(Books, @"c:/tmp/output.json");
+                SerializeToFile(Books, filepicker.outputname);
             }
 
             public static async Task SerializeToFile(object data, string filename)
@@ -206,7 +181,6 @@ namespace WPFBookOrganizer
             public string PublishedIn { get; }
             public string Publisher { get; }
             public string Date { get; }
-
 
             private bool PrintMembers(StringBuilder stringBuilder)
             {
